@@ -3,26 +3,32 @@
 # IMPORT STATEMENTS
 import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib
 from matplotlib import cm
 # SOLUTION
 
 ################Basic program from docs#########################
 
 
-plt.style.use('_mpl-gallery')
+# Create the figure and axes object
+fig = plt.figure()
+ax = fig.add_subplot(projection='3d')
 
-# Make data
-X = np.arange(-5, 5, 0.25)
-Y = np.arange(-5, 5, 0.25)
-X, Y = np.meshgrid(X, Y)
-Z = pow(X**2 - 1, (1/2))
+# Create the sphere
+radius = 1
+pi = np.pi
+cos = np.cos
+sin = np.sin
+phi, theta = np.mgrid[0.0:pi:100j, 0.0:2.0*pi:100j]
+x = radius*sin(phi)*cos(theta)
+y = radius*sin(phi)*sin(theta)
+z = radius*cos(phi)
 
 # Plot the surface
-fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-ax.plot_surface(X, Y, Z, vmin=Z.min() * 2, cmap=cm.Blues)
+ax.plot_surface(x, y, z, color='blue')
 
-ax.set(xticklabels=[],
-       yticklabels=[],
-       zticklabels=[])
+# Set the aspect ratio to 1 so that the sphere is displayed correctly
+ax.set_aspect('equal')
 
+# Show the plot
 plt.show()
